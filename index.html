@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://kit.fontawesome.com/1cf483120b.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <title>Portal Login Form</title>
+</head>
+<body>
+    <section id="testim" class="testim">
+        <!-- <div class="testim-cover"> -->
+        <div class="wrap">
+            <span id="right-arrow" class="arrow right fa fa-chevron-right"></span>
+            <span id="left-arrow" class="arrow left fa fa-chevron-left"></span>
+            <ul id="testim-dots" class="dots">
+                <li class="dot active"></li>
+                <!-- -->
+                <li class="dot"></li>
+                <!-- -->
+                <li class="dot"></li>
+                <!-- -->
+                <li class="dot"></li>
+                <!-- -->
+                <li class="dot"></li>
+            </ul>
+            <div id="testim-content" class="cont">
+                <div class="active">
+                    <div class="img">
+                        <img src="https://i.pinimg.com/736x/02/57/53/02575386baad3706d44cfa2dc7a9b1a0.jpg" alt="" />
+                    </div>
+                    <h2>Serkan Polat</h2>
+                    <p> Serkan, kendi köyünden çıkan ilk üniversite mezunuydu. Tarım kökenli ailesini gururlandırarak
+                        mühendis oldu ve yıllar içinde büyük projelere imza attı. Kendisi aynı zamanda gençlere
+                        mentorluk yaparak onların da hedeflerine ulaşmalarına destek oluyor. </p>
+                </div>
+                <div>
+                    <div class="img">
+                        <img src="https://www.fotoipek.com.tr/wp-content/uploads/2021/04/biyometrikk.jpg" alt="" />
+                    </div>
+                    <h2>Orhan Yılmaz</h2>
+                    <p> Orhan, uzun yıllar boyunca tekstil sektöründe çalışarak deneyim kazandıktan sonra kendi
+                        atölyesini açtı. Yaratıcı tasarımları ve kaliteli ürünleriyle kısa sürede kendini kanıtladı.
+                        Bugün, onun atölyesi birçok ünlü markaya üretim yapıyor. </p>
+                </div>
+                <div>
+                    <div class="img">
+                        <img src="https://www.ersinaydin.com.tr/wp-content/uploads/2022/07/vesikalik-fotograf-2.jpg"
+                            alt="" />
+                    </div>
+                    <h2>Ayten Tekin</h2>
+                    <p> Ayten, çocuk yaşta tiyatroya duyduğu ilgiyle büyüdü. İlk sahne deneyiminden sonra oyunculuk
+                        tutkusu peşinden giderek sanat akademisinden mezun oldu. Şimdi, hem tiyatro sahnelerinde hem de
+                        televizyon dizilerinde rol alarak sanat dünyasında adını duyuruyor. </p>
+                </div>
+                <div>
+                    <div class="img">
+                        <img src="https://static.wixstatic.com/media/b88739_e711f50959d3412aa5c1f9490b4f85af~mv2.jpg/v1/fill/w_600,h_720,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/b88739_e711f50959d3412aa5c1f9490b4f85af~mv2.jpg"
+                            alt="" />
+                    </div>
+                    <h2>Zehra Avcı</h2>
+                    <p> Zehra, lise döneminde yazılıma merak salarak bu alanda kendini geliştirmeye başladı. Zorlu bir
+                        üniversite eğitiminden sonra, bir teknoloji firmasında lider yazılımcı olarak çalışıyor. Şimdi,
+                        genç kızlara yazılım dünyasına adım atmalarında destek veriyor. </p>
+                </div>
+                <div>
+                    <div class="img">
+                        <img src="https://www.fotoipek.com.tr/wp-content/uploads/2021/04/vize.jpg" alt="" />
+                    </div>
+                    <h2>Ebru Aydın</h2>
+                    <p> Ebru, modaya olan ilgisini kendi butiğini açarak gerçeğe dönüştürdü. İlk mağazasını açtığında,
+                        müşterilerine sunduğu özgün tasarımlarla hızla tanınır oldu. Bugün, butiği kendi tarzını
+                        yansıtan tasarımlarıyla dikkat çekiyor ve şehirde popüler bir durak haline geldi. </p>
+                </div>
+            </div>
+        </div>
+        <!-- </div> -->
+    </section>
+    <script src="https://use.fontawesome.com/1744f3f671.js"></script>
+</body>
+
+
+<script>
+    // vars
+    'use strict'
+    var testim = document.getElementById("testim"),
+        testimDots = Array.prototype.slice.call(document.getElementById("testim-dots").children),
+        testimContent = Array.prototype.slice.call(document.getElementById("testim-content").children),
+        testimLeftArrow = document.getElementById("left-arrow"),
+        testimRightArrow = document.getElementById("right-arrow"),
+        testimSpeed = 4500,
+        currentSlide = 0,
+        currentActive = 0,
+        testimTimer,
+        touchStartPos,
+        touchEndPos,
+        touchPosDiff,
+        ignoreTouch = 30;
+    ;
+
+    window.onload = function () {
+
+        // Testim Script
+        function playSlide(slide) {
+            for (var k = 0; k < testimDots.length; k++) {
+                testimContent[k].classList.remove("active");
+                testimContent[k].classList.remove("inactive");
+                testimDots[k].classList.remove("active");
+            }
+
+            if (slide < 0) {
+                slide = currentSlide = testimContent.length - 1;
+            }
+
+            if (slide > testimContent.length - 1) {
+                slide = currentSlide = 0;
+            }
+
+            if (currentActive != currentSlide) {
+                testimContent[currentActive].classList.add("inactive");
+            }
+            testimContent[slide].classList.add("active");
+            testimDots[slide].classList.add("active");
+
+            currentActive = currentSlide;
+
+            clearTimeout(testimTimer);
+            testimTimer = setTimeout(function () {
+                playSlide(currentSlide += 1);
+            }, testimSpeed)
+        }
+
+        testimLeftArrow.addEventListener("click", function () {
+            playSlide(currentSlide -= 1);
+        })
+
+        testimRightArrow.addEventListener("click", function () {
+            playSlide(currentSlide += 1);
+        })
+
+        for (var l = 0; l < testimDots.length; l++) {
+            testimDots[l].addEventListener("click", function () {
+                playSlide(currentSlide = testimDots.indexOf(this));
+            })
+        }
+
+        playSlide(currentSlide);
+
+        // keyboard shortcuts
+        document.addEventListener("keyup", function (e) {
+            switch (e.keyCode) {
+                case 37:
+                    testimLeftArrow.click();
+                    break;
+
+                case 39:
+                    testimRightArrow.click();
+                    break;
+
+                case 39:
+                    testimRightArrow.click();
+                    break;
+
+                default:
+                    break;
+            }
+        })
+
+        testim.addEventListener("touchstart", function (e) {
+            touchStartPos = e.changedTouches[0].clientX;
+        })
+
+        testim.addEventListener("touchend", function (e) {
+            touchEndPos = e.changedTouches[0].clientX;
+
+            touchPosDiff = touchStartPos - touchEndPos;
+
+            console.log(touchPosDiff);
+            console.log(touchStartPos);
+            console.log(touchEndPos);
+
+
+            if (touchPosDiff > 0 + ignoreTouch) {
+                testimLeftArrow.click();
+            } else if (touchPosDiff < 0 - ignoreTouch) {
+                testimRightArrow.click();
+            } else {
+                return;
+            }
+
+        })
+    }
+</script>
+</html>
